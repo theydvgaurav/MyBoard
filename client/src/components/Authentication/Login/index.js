@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Form, Formik } from "formik";
+import { Form, Formik, Field } from "formik";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import * as yup from 'yup';
 
-import '../components.css';
+import InputTextField from '../../EditProfile/TextField';
+
+import '../authentication.css';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -25,29 +27,34 @@ const Login = () => {
 
     const classList = useStyles();
 
-    const [signIn, setSignIn] = useState(false);
+    const [isSubmit, setSubmit] = useState(false);
 
     const validationSchema = yup.object({
-        selectedUserName: yup.string(),
-        selectedPassword: yup.string()
+        selectedUserName: yup.string().required('This is a mandatory.'),
+        selectedPassword: yup.string().required('This is a mandatory.')
     });
 
-    const onSubmit = () => {
-
-    }
-
-    const handleSignIn = () => {
-        setSignIn(!signIn);
+    const isValid = formikProps => {
+        const {
+          values,
+        } = formikProps;
+    
+        return (values.selectedUserName
+            && values.selectedPassword);
     };
 
+    const onSubmitForm = () => {
+        setSubmit(true);
+    }
+
     const handleSignUp = () => {
-        setSignIn(!signIn);
+        // setSignIn(!signIn);
     };
 
     return (
         <div className="mainContainer">
             <div className="sideImg">
-                <img src={require('../../assets/images/footer-image.png')} />
+                <img src={require('../../../assets/images/footer-image.png')} />
             </div>
             <div className="containerMainBody">
 
@@ -59,24 +66,17 @@ const Login = () => {
                         Not have an account? <span onClick={handleSignUp} className="formContainerLogIn">Sign Up</span>
                     </div>
                     <Formik
-                        initialValues={{ email: '', password: '' }}
-                        validate={values => {
-                            const errors = {};
-                            if (!values.email) {
-                                errors.email = 'Required';
-                            } else if (
-                                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                            ) {
-                                errors.email = 'Invalid email address';
-                            }
-                            return errors;
+                        initialValues={{
+                            selectedUserName: '',
+                            selectedPassword: ''
                         }}
-                        onSubmit={onSubmit}
+                        validationSchema={validationSchema}
+                        onSubmit={onSubmitForm}
                     >
                         {formikProps => {
                             const {
                                 values,
-                                isValid,
+                                setFieldValue,
                                 handleSubmit
                             } = formikProps;
                             return (
@@ -86,20 +86,30 @@ const Login = () => {
                                 >
                                     <div className="inputContainer">
                                         <span className="label">User Name</span>
-                                        <TextField
+                                        <Field
+                                            name="username"
+                                            component={InputTextField}
                                             label="UserName"
-                                            type="email"
-                                            variant="standard"
-                                            value={values.email}
+                                            type="name"
+                                            value={values.selectedUserName}
+                                            handlechange={value => {
+                                                setFieldValue('selectedUserName', value);
+                                            }}
+                                            // error={errors.selectedParentName}
                                         />
                                     </div>
                                     <div className="inputContainer">&nbsp;&nbsp;
                                         <span className="label">Password</span>
-                                        <TextField
+                                        <Field
+                                            name="password"
+                                            component={InputTextField}
                                             label="Password"
-                                            variant="standard"
                                             type="password"
-                                            value={values.password}
+                                            value={values.selectedPassword}
+                                            handlechange={value => {
+                                                setFieldValue('selectedPassword', value);
+                                            }}
+                                            // error={errors.selectedParentName}
                                         />
                                     </div>
                                     <div className="buttonContainer">
@@ -108,8 +118,7 @@ const Login = () => {
                                             variant="contained"
                                             color="primary"
                                             className={classList.root}
-                                        // !isValid(formikProps) ||
-                                        // disabled={isSubmit}
+                                            disabled={!isValid(formikProps) || isSubmit}
                                         >
                                             <div className="submit">Login</div>
                                         </Button>

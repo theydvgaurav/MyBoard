@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Form, Formik } from "formik";
-import TextField from '@material-ui/core/TextField';
+import { Form, Formik, Field } from "formik";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import * as yup from 'yup';
 
-import '../components.css';
+import InputTextField from '../../EditProfile/TextField';
+
+import '../authentication.css';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -25,24 +26,38 @@ const SignUp = () => {
 
     const classList = useStyles();
 
-    // const [signIn, setSignIn] = useState(false);
+    const [isSubmit, setSubmit] = useState(false);
 
-    const onSubmit = () => {
+    const validationSchema = yup.object({
+        selectedUserName: yup.string().required('This is a mandatory.'),
+        selectedEmail: yup
+            .string()
+            .email('Invalid email'),
+        selectedPassword: yup.string().required('This is a mandatory.')
+    });
 
+    const isValid = formikProps => {
+        const {
+          values,
+        } = formikProps;
+    
+        return (values.selectedUserName
+            && values.selectedEmail
+            && values.selectedPassword);
+    };
+
+    const onSubmitForm = () => {
+        setSubmit(true);
     }
 
     const handleSignIn = () => {
         // setSignIn(!signIn);
     };
 
-    const handleSignUp = () => {
-        // setSignIn(!signIn);
-    };
-
     return (
         <div className="mainSignUpContainer">
             <div className="sideImg">
-                <img src={require('../../assets/images/footer-image.png')} />
+                <img src={require('../../../assets/images/footer-image.png')} />
             </div>
             <div className="containerMainBody">
 
@@ -54,24 +69,18 @@ const SignUp = () => {
                         Already have an account? <span onClick={handleSignIn} className="formContainerLogIn">Log In</span>
                     </div>
                     <Formik
-                        initialValues={{ userName: '', email: '', password: '' }}
-                        validate={values => {
-                            const errors = {};
-                            if (!values.email) {
-                                errors.email = 'Required';
-                            } else if (
-                                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                            ) {
-                                errors.email = 'Invalid email address';
-                            }
-                            return errors;
+                        initialValues={{
+                            selectedUserName: '',
+                            selectedEmail: '',
+                            selectedPassword: ''
                         }}
-                        onSubmit={onSubmit}
+                        validationSchema={validationSchema}
+                        onSubmit={onSubmitForm}
                     >
                         {formikProps => {
                             const {
                                 values,
-                                isValid,
+                                setFieldValue,
                                 handleSubmit
                             } = formikProps;
                             return (
@@ -81,29 +90,45 @@ const SignUp = () => {
                                 >
                                     <div className="inputContainer">
                                         <span className="label">User Name</span>
-                                        <TextField
+                                        <Field
+                                            name="username"
+                                            component={InputTextField}
                                             label="UserName"
                                             type="name"
-                                            variant="standard"
-                                            value={values.name}
+                                            value={values.selectedUserName}
+                                            handlechange={value => {
+                                                setFieldValue('selectedUserName', value);
+                                            }}
+                                            // error={errors.selectedParentName}
                                         />
                                     </div>
                                     <div className="inputContainer">
                                         <span className="label">Email</span>
-                                        <TextField
+                                        <Field
+                                            name="email"
+                                            component={InputTextField}
                                             label="Email"
                                             type="email"
-                                            variant="standard"
-                                            // value={values.email}
+                                            value={values.selectedEmail}
+                                            handlechange={value => {
+                                                setFieldValue('selectedEmail', value);
+                                            }}
+                                            // error={errors.selectedParentName}
                                         />
                                     </div>
 
                                     <div className="inputContainer">
                                         <span className="label">Password</span>
-                                        <TextField
+                                        <Field
+                                            name="password"
+                                            component={InputTextField}
                                             label="Password"
-                                            variant="standard"
                                             type="password"
+                                            value={values.selectedPassword}
+                                            handlechange={value => {
+                                                setFieldValue('selectedPassword', value);
+                                            }}
+                                            // error={errors.selectedParentName}
                                         />
                                     </div>
                                     <div className="buttonContainer">
@@ -112,8 +137,7 @@ const SignUp = () => {
                                             variant="contained"
                                             color="primary"
                                             className={classList.root}
-                                        // !isValid(formikProps) ||
-                                        // disabled={isSubmit}
+                                            disabled={!isValid(formikProps) || isSubmit}
                                         >
                                             <div className="submit">Register</div>
                                         </Button>
