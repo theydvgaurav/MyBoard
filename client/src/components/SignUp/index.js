@@ -25,18 +25,18 @@ const SignUp = () => {
 
     const classList = useStyles();
 
-    const [signIn, setSignIn] = useState(false);
+    // const [signIn, setSignIn] = useState(false);
 
     const onSubmit = () => {
 
     }
 
     const handleSignIn = () => {
-        setSignIn(!signIn);
+        // setSignIn(!signIn);
     };
 
     const handleSignUp = () => {
-        setSignIn(!signIn);
+        // setSignIn(!signIn);
     };
 
     return (
@@ -54,7 +54,7 @@ const SignUp = () => {
                         Already have an account? <span onClick={handleSignIn} className="formContainerLogIn">Log In</span>
                     </div>
                     <Formik
-                        initialValues={{ name: '', email: '', password: '' }}
+                        initialValues={{ userName: '', email: '', password: '' }}
                         validate={values => {
                             const errors = {};
                             if (!values.email) {
@@ -80,39 +80,30 @@ const SignUp = () => {
                                     onSubmit={handleSubmit}
                                 >
                                     <div className="inputContainer">
-                                        <span className="label">Name</span>
+                                        <span className="label">User Name</span>
                                         <TextField
-                                            label="Name"
+                                            label="UserName"
                                             type="name"
                                             variant="standard"
                                             value={values.name}
                                         />
                                     </div>
                                     <div className="inputContainer">
-                                        <span className="label">User Name</span>
+                                        <span className="label">Email</span>
                                         <TextField
-                                            label="UserName"
+                                            label="Email"
                                             type="email"
                                             variant="standard"
-                                            value={values.email}
+                                            // value={values.email}
                                         />
                                     </div>
+
                                     <div className="inputContainer">
                                         <span className="label">Password</span>
                                         <TextField
                                             label="Password"
                                             variant="standard"
                                             type="password"
-                                            value={values.password}
-                                        />
-                                    </div>
-                                    <div className="inputContainer">
-                                        <span className="label">Mobile Number</span>
-                                        <TextField
-                                            label="Mobile Number"
-                                            variant="standard"
-                                            type="number"
-                                            value={values.password}
                                         />
                                     </div>
                                     <div className="buttonContainer">

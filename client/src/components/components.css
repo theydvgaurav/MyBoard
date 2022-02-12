@@ -17,7 +17,7 @@
     left: 50%;
     transform: translate(-50%,-50%);
     width: 900px;
-    height: 600px;
+    height: 550px;
     background-color: antiquewhite;
     border-radius: 10px;
     display: flex;
@@ -92,13 +92,13 @@
     }
     .mainSignUpContainer{
         width: 600px;
-        height: 500px;
+        height: 450px;
     }
     .ContainerBody {
         padding: 80px 20px;
     }
     .ContainerSignUpBody {
-        padding: 30px 60px;
+        padding: 30px 20px;
     }
 }
 
@@ -113,7 +113,7 @@
     }
     .mainSignUpContainer{
         width: 500px;
-        height: 500px;
+        height: 440px;
         flex-direction: column;
     }
     .ContainerBody {
@@ -129,7 +129,7 @@
     }
     .mainSignUpContainer {
         width: 340px;
-        height: 500px;
+        height: 450px;
         flex-direction: column;
     }
     .ContainerBody {
