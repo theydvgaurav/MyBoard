@@ -1,0 +1,149 @@
+.mainContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 900px;
+    height: 550px;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.mainSignUpContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 900px;
+    height: 550px;
+    background-color: antiquewhite;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.ContainerBody {
+    position: absolute;
+    padding: 100px 60px;
+}
+
+.ContainerSignUpBody {
+    position: absolute;
+    padding: 100px 60px;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 20px;
+    justify-content: space-between;
+}
+
+.label {
+    padding-right: 15px;
+    font-size: 20px;
+}
+
+.sideImg {
+    height: 100%;
+    width: 40%;
+}
+
+.sideImg > img {
+    width: 90%;
+
+}
+
+.containerMainBody {
+    width: 60%;
+    height: 100%;
+}
+
+.buttonContainer {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.formContainerHeading {
+    font-size: 28px;
+    font-weight: 800;
+    padding-bottom: 15px;
+}
+
+.formContainerSubheading {
+    font-size: 16px;
+    color: rgb(146, 154, 226);
+    font-weight: 600;
+    padding-bottom: 40px;
+}
+
+.formContainerLogIn {
+    color: blue;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+    .mainContainer {
+        width: 600px;
+        height: 500px;
+    }
+    .mainSignUpContainer{
+        width: 600px;
+        height: 450px;
+    }
+    .ContainerBody {
+        padding: 80px 20px;
+    }
+    .ContainerSignUpBody {
+        padding: 30px 20px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .sideImg {
+        display: none;
+    }
+    .mainContainer {
+        width: 500px;
+        height: 500px;
+        flex-direction: column;
+    }
+    .mainSignUpContainer{
+        width: 500px;
+        height: 440px;
+        flex-direction: column;
+    }
+    .ContainerBody {
+        padding: 80px 40px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .mainContainer {
+        width: 340px;
+        height: 400px;
+        flex-direction: column;
+    }
+    .mainSignUpContainer {
+        width: 340px;
+        height: 450px;
+        flex-direction: column;
+    }
+    .ContainerBody {
+        padding: 45px 20px;
+    }
+    .ContainerSignUpBody {
+        padding: 40px 20px;
+    }
+
+    .label{
+        font-size: 16px;
+        font-weight: 500;
+    }
+    .inputContainer{
+        align-items: flex-end
+    }
+}
